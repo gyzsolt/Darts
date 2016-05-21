@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.lang.annotation.Inherited;
 import java.util.List;
 
 import javafx.application.Application;
@@ -15,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.JatekVezerlo;
 import model.Jatekos;
+
 /**
  * A grafikus felület fő fezérlője.
  * 
@@ -27,29 +29,40 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-
 	private ObservableList<Jatekos> personData = FXCollections.observableArrayList();
 
-
+	/**
+	 *  A {@code MainApp} konstruktora.
+	 */
 	public MainApp() {
 
 	}
 
+	/**
+	 * Frissíti a játékosok listáját és azt át adja a {@code DartsOverviewController}.
+	 * @param Persons játékosokat tartalmazó lista
+	 */
 	public void UdpdatePerson(List<Jatekos> Persons) {
 		personData.clear();
 		personData.addAll(Persons);
 		controller.UpdatePersonList();
 	}
 
+	/**
+	 * Frissiti a tanácsokat.
+	 */
 	public void UpdateSuggesion() {
 		controller.UpdateSuggesion();
 	}
 
+	/**
+	 * Vissza adja {@code ObservableList} tárolt játékosokat.
+	 * @return visszatér a játékosok listájával
+	 */
 	public ObservableList<Jatekos> getPersonData() {
 		return personData;
 	}
-
-
+	/** {@inheritDoc} */
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -60,6 +73,9 @@ public class MainApp extends Application {
 		showDartsOverview();
 	}
 
+	/**
+	 * Inicialiálja a {@code RootLayout}.
+	 */
 	public void initRootLayout() {
 		try {
 			// Load root layout from fxml file.
@@ -78,7 +94,9 @@ public class MainApp extends Application {
 		}
 	}
 
-
+	/**
+	 * Megjeleniti a játék fő ablakát.
+	 */
 	public void showDartsOverview() {
 		try {
 			// Load person overview.
@@ -99,6 +117,10 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * Megjeleníti a befejezett mecsután megjelenő ablakot.
+	 * @param jatekos megkapja a győztes játékos
+	 */
 	public void showEndDialog(Jatekos jatekos) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -128,11 +150,18 @@ public class MainApp extends Application {
 		}
 	}
 
-
+	/**
+	 * Lekérdezi {@code primariStage}.
+	 * @return vissza té a primariStage-vel
+	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
+	/**
+	 * A grafikus felület megjelenítésére szolgáló main függvény.
+	 * @param args parancs sori argumentumok
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

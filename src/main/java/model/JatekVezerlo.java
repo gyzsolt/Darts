@@ -46,7 +46,7 @@ public class JatekVezerlo {
 	private static JatekVezerlo instance = null;
 
 	/**
-	 * Akutális dobások száma-
+	 * Akutális dobások száma.
 	 */
 	private int dobas = 0;
 
@@ -283,7 +283,7 @@ public class JatekVezerlo {
 	}
 
 	/**
-	 * Játékosok listájának beállítása egy adott lista alapján
+	 * Játékosok listájának beállítása egy adott lista alapján.
 	 * @param jatekosok játékosokat tartalmazó lisa.
 	 */
 	public static void setJatekosok(List<Jatekos> jatekosok) {

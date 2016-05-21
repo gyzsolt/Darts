@@ -37,10 +37,9 @@ public class Dobas {
 	/**
 	 * Konstruktor a dobás osztályhoz.
 	 * 
-	 * @param pont
-	 *            A dobott pont.
-	 * @param jelzo
-	 *            A dobott pont szorzőja.
+	 * @param pont A dobott pont.
+	 * 
+	 * @param jelzo A dobott pont szorzőja.
 	 */
 	public Dobas(int pont, String jelzo) {
 		this.pont = pont;
@@ -57,10 +56,9 @@ public class Dobas {
 	}
 
 	/**
-	 * Beállítja a dobott pontot
+	 * Beállítja a dobott pontot.
 	 * 
-	 * @param pont
-	 *            a dobott pont
+	 * @param pont a dobott pont
 	 */
 	public void setPont(int pont) {
 		this.pont = pont;
@@ -78,8 +76,7 @@ public class Dobas {
 	/**
 	 * Beállítja a jelő értékét.
 	 * 
-	 * @param jelzo
-	 *            értéke a jelzőnek
+	 * @param jelzo értéke a jelzőnek
 	 */
 	public void setJelzo(String jelzo) {
 		this.jelzo = jelzo;

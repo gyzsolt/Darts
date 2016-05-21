@@ -106,7 +106,13 @@ public class BuildTable {
     private double TextOffsetY(double fontSize) {
         return (fontSize / 2) - fontSize * 0.4;
     }
-    
+    /**
+     * A darts tábla körül elhelyezkedő számok elhelyezését számolja ki.
+     * @param origoX az középpont x koordinátája 
+     * @param origoY az középpont y koordinátája
+     * @param radius a körnek a sugara melyre helyezni szeretnénk a számokat
+     * @return lista vissza adja a pe pozícionált számok listáját
+     */
     public List<Text> createTextList(double origoX ,double origoY, double radius){
     	List<Text> lista = new ArrayList<>();
     	
@@ -125,7 +131,13 @@ public class BuildTable {
     	
     	return lista;
     }
-    
+    /**
+     * Elkészíti a darts tablát megvalósítő elemeket.
+     * @param origoX a darts tábla középpontjának X koordinátája 
+     * @param origoY a darts tábla középpontjának Y koordinátája	
+     * @param radius a darts tábla sugara
+     * @return	visszatér egy {@code Group} objektummal ami tartalmazza a táblát
+     */
     public Group tableBuild(Double origoX, Double origoY, Double radius){
     	Group tablegroup = new Group();
     	

@@ -27,18 +27,31 @@ public class EndOverviewController {
 
 	private Stage dialogStage;
 
+	/**
+	 * A kontroller konstruktora.
+	 */
 	public EndOverviewController() {
 
 	}
-
+	/**
+	 * A kontroller inicializáló függvénye.
+	 */
 	@FXML
 	private void initialize() {
 	}
-
+	
+	/**Beállítja a {@code dialogStage}.
+	 * 
+	 * @param dialogStage a kapott dialogStage
+	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
+	/**
+	 * Beállítja a megkapott győztes játékosnevét a árbeszéd anlakra.
+	 * @param jatekos a kapott győztes játékos
+	 */
 	public void setWinner(Jatekos jatekos) {
 		winnerLabel.setText(jatekos.getNeve());
 	}

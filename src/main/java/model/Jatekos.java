@@ -46,7 +46,7 @@ public class Jatekos {
 		this.neve = neve;
 	}
 
-	/**Vissza adja a játékos nevét
+	/**Vissza adja a játékos nevét.
 	 * 
 	 * @return  neve a játékosnak
 	 */

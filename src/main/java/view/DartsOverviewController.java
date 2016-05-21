@@ -102,7 +102,10 @@ public class DartsOverviewController {
 		pontLabel.setText("Üdvözöljük a Játékosokat");
 
 	}
-
+	/**
+	 * Beállítja a {@code MainApp} a hivatkozás, majd játékoso listáját.
+	 * @param mainApp a mainApp hivatkozása
+	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		personTable.setItems(mainApp.getPersonData());
@@ -131,11 +134,16 @@ public class DartsOverviewController {
 		}
 
 	}
-
+	/**
+	 * Frissíti a játékosokat tartalmazó táblát.
+	 */
 	public void UpdatePersonList() {
 		personTable.refresh();
 	}
-
+	
+	/**
+	 * Az aktuális játékoshoz tanácsot kér a {@link JatekVezerlo}.
+	 */
 	public void UpdateSuggesion() {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex != -1)
