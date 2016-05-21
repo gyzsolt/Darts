@@ -1,0 +1,12 @@
+model\normalDarts.class
+view\RootLayoutController.class
+view\EndOverviewController.class
+view\BuildTable.class
+view\DartsOverviewController.class
+model\Jatekos.class
+model\Main.class
+model\Dobas.class
+model\SaveLoad.class
+model\JatekAllapot.class
+view\MainApp.class
+model\JatekVezerlo.class
