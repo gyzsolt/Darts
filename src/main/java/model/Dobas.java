@@ -102,7 +102,7 @@ public class Dobas {
 
 		return pontszam;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

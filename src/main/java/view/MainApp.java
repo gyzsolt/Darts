@@ -145,7 +145,7 @@ public class MainApp extends Application {
 
 	/**
 	 * Lekérdezi {@code primariStage}.
-	 * @return vissza té a primariStage-vel
+	 * @return vissza tér a primariStage-vel
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;

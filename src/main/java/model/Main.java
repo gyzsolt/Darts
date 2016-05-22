@@ -20,7 +20,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		logger.info("A program elindult");
+		logger.info("Started");
 		JatekVezerlo.getInstance().run();
 	}
 

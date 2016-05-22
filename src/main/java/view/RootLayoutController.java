@@ -15,6 +15,7 @@ import model.JatekVezerlo;
  * @author Gyulai Zsolt
  *
  */
+
 public class RootLayoutController {
 
 	/**

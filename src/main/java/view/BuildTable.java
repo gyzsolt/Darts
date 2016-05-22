@@ -31,27 +31,24 @@ public class BuildTable {
         double angleAlpha = degreeStart * (Math.PI / 180);
         double angleAlphaNext = degreeEnd * (Math.PI / 180);
      
-        //Point 1
+
         double pointX1 = origoX + innerRadius * Math.sin(angleAlpha);
         double pointY1 = origoY - innerRadius * Math.cos(angleAlpha);
      
-        //Point 2
         double pointX2 = origoX + outerRadius * Math.sin(angleAlpha);
         double pointY2 = origoY - outerRadius * Math.cos(angleAlpha);
      
-        //Point 3
         double pointX3 = origoX + outerRadius * Math.sin(angleAlphaNext);
         double pointY3 = origoY - outerRadius * Math.cos(angleAlphaNext);
      
-        //Point 4
         double pointX4 = origoX + innerRadius * Math.sin(angleAlphaNext);
         double pointY4 = origoY - innerRadius * Math.cos(angleAlphaNext);
      
         Path path = new Path();
         
  
-                path.getElements().add(new MoveTo(pointX4, pointY4)); // Move to Point 1
-                path.getElements().add(new LineTo(pointX3, pointY3)); // Draw a Line to Point 2
+                path.getElements().add(new MoveTo(pointX4, pointY4)); 
+                path.getElements().add(new LineTo(pointX3, pointY3)); 
                 
                 ArcTo arcto = new ArcTo();
                 arcto.setRadiusX(outerRadius);
@@ -62,7 +59,7 @@ public class BuildTable {
                 
                path.getElements().add(arcto);
 
-               path.getElements().add(new LineTo(pointX1, pointY1)); // Draw a Line to Point 4
+               path.getElements().add(new LineTo(pointX1, pointY1)); 
 
                path.getElements().add(new MoveTo(pointX4, pointY4));
                 

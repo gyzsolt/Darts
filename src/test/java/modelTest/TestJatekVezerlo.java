@@ -68,11 +68,6 @@ public class TestJatekVezerlo {
 
 	}
 	
-	/*@Test
-	public void testAddJatekos(){
-	}
-	
-	*/
 	
 	@Test
 	public void testSaveLoad(){
@@ -91,9 +86,8 @@ public class TestJatekVezerlo {
 		assertEquals(jatekAllapot.getJatekPont(), JatekVezerlo.getInstance().getJatekPont());
 		assertEquals(jatekAllapot.getJatekTipus(), JatekVezerlo.getInstance().getJatekTipus());
 		assertEquals(jatekAllapot.getKovetkezoJatekos(), JatekVezerlo.getInstance().getKovetkezoJatekos());
-		assertEquals(jatekAllapot.getDobas(), JatekVezerlo.getInstance().getDobas());
-		
-		
-		
+		assertEquals(jatekAllapot.getDobas(), JatekVezerlo.getInstance().getDobas());						
 	}
+	
+	
 }

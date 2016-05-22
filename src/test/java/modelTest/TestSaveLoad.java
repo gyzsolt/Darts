@@ -12,9 +12,9 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
@@ -63,11 +63,17 @@ public class TestSaveLoad {
 
 		try {
 			resourceFile = folder.newFile();
+			@SuppressWarnings("rawtypes")
 			Class cl = TestSaveLoad.class;
 			File resource = new File(cl.getResource("/TestSaveLoad/darts.xml").getFile());
+			@SuppressWarnings("resource")
 			FileChannel src = new FileInputStream(resource).getChannel();
+			@SuppressWarnings("resource")
 			FileChannel dst = new FileOutputStream(resourceFile).getChannel();
 			dst.transferFrom(src, 0, src.size());
+			
+			src.close();
+			dst.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("Intit fail");
@@ -98,7 +104,11 @@ public class TestSaveLoad {
 			}
 
 			assertEquals(resourceSb.toString(), savedSb.toString());
-
+			
+			savedIStream.close();
+			savedReader.close();
+			resourceIStream.close();
+			resourceReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("testSave fail");
@@ -112,5 +122,6 @@ public class TestSaveLoad {
 
 		assertEquals(load.load(), jatekAllapot);
 	}
+	
 
 }
