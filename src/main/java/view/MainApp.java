@@ -49,7 +49,6 @@ public class MainApp extends Application {
 	public void UdpdatePerson(List<Jatekos> Persons) {
 		personData.clear();
 		personData.addAll(Persons);
-		controller.UpdatePersonList();
 	}
 
 	/**

@@ -140,14 +140,7 @@ public class DartsOverviewController {
 
 		}
 
-	}
-	/**
-	 * Frissíti a játékosokat tartalmazó táblát.
-	 */
-	public void UpdatePersonList() {
-		personTable.refresh();
-	}
-	
+	}	
 	/**
 	 * Az aktuális játékoshoz tanácsot kér a {@link JatekVezerlo}.
 	 */
