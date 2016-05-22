@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jatekAllapot>
+    <dobasok>
+        <dobas>
+            <neve>Kati</neve>
+            <dobasok>
+                <dobas>
+                    <pont>20</pont>
+                    <jelzo>T</jelzo>
+                </dobas>
+                <dobas>
+                    <pont>20</pont>
+                    <jelzo>T</jelzo>
+                </dobas>
+                <dobas>
+                    <pont>20</pont>
+                    <jelzo>S</jelzo>
+                </dobas>
+            </dobasok>
+        </dobas>
+        <dobas>
+            <neve>Sanyi</neve>
+            <dobasok>
+                <dobas>
+                    <pont>6</pont>
+                    <jelzo>S</jelzo>
+                </dobas>
+                <dobas>
+                    <pont>17</pont>
+                    <jelzo>D</jelzo>
+                </dobas>
+                <dobas>
+                    <pont>19</pont>
+                    <jelzo>S</jelzo>
+                </dobas>
+            </dobasok>
+        </dobas>
+    </dobasok>
+    <jatekTipus>301</jatekTipus>
+    <jatekPont>301</jatekPont>
+    <kovetkezoJatekos>0</kovetkezoJatekos>
+    <dobas>0</dobas>
+</jatekAllapot>

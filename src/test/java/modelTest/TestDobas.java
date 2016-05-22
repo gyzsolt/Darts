@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import model.Dobas;
 
-public class DobasTeszt {
+public class TestDobas {
 
 	private static Dobas dobas;
 	

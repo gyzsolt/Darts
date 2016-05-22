@@ -102,4 +102,33 @@ public class Dobas {
 
 		return pontszam;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((jelzo == null) ? 0 : jelzo.hashCode());
+		result = prime * result + pont;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dobas other = (Dobas) obj;
+		if (jelzo == null) {
+			if (other.jelzo != null)
+				return false;
+		} else if (!jelzo.equals(other.jelzo))
+			return false;
+		if (pont != other.pont)
+			return false;
+		return true;
+	}
+	
 }

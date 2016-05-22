@@ -10,7 +10,7 @@ import org.junit.Test;
 import model.Dobas;
 import model.Jatekos;
 
-public class JatekosTeszt {
+public class TestJatekos {
 
 	private static Jatekos jatekos;
 	

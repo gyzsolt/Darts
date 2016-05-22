@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,7 +27,7 @@ public class EndOverviewController {
 	private Button closeButton;
 
 	private Stage dialogStage;
-
+	
 	/**
 	 * A kontroller konstruktora.
 	 */
@@ -35,7 +36,7 @@ public class EndOverviewController {
 	}
 	/**
 	 * A kontroller inicializáló függvénye.
-	 */
+	 */	
 	@FXML
 	private void initialize() {
 	}
@@ -53,7 +54,7 @@ public class EndOverviewController {
 	 * @param jatekos a kapott győztes játékos
 	 */
 	public void setWinner(Jatekos jatekos) {
-		winnerLabel.setText(jatekos.getNeve());
+		winnerLabel.setText(jatekos.getNeve()+"Nyert");
 	}
 
 	@FXML
@@ -66,6 +67,8 @@ public class EndOverviewController {
 	@FXML
 	private void handleClose() {
 		dialogStage.close();
+		Platform.exit();
+		
 	}
 
 }

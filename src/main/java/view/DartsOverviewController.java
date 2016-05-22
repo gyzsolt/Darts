@@ -112,6 +112,12 @@ public class DartsOverviewController {
 
 	}
 
+	/**
+	 * Meghívjaa {@code handleSrart} függvényt ezáltal elkezdett mecs állapotába kerül a játék.
+	 */
+	public void start(){
+		handleStart();
+	}
 	@FXML
 	private void handleStart() {
 		if (personTable.getItems().size() > 0) {
@@ -125,10 +131,11 @@ public class DartsOverviewController {
 
 			SuggestionButton.setVisible(true);
 			pontLabel.setText("");
-			personTable.getSelectionModel().select(0);
+			personTable.getSelectionModel().select(JatekVezerlo.getInstance().getKovetkezoJatekos());
 
 			jatekModLabel.setText("Jatek Mod: " + JatekVezerlo.getInstance().getJatekTipus());
 
+			JatekVezerlo.getInstance().setAktivJatek(true);
 			ready = true;
 
 		}
@@ -148,7 +155,7 @@ public class DartsOverviewController {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex != -1)
 			pontLabel.setText(JatekVezerlo.getInstance().getJavaslat(comboBox.getValue(),
-					mainApp.getPersonData().get(selectedIndex)));
+					mainApp.getPersonData().get(JatekVezerlo.getInstance().getKovetkezoJatekos())));
 	}
 
 	@FXML
@@ -179,10 +186,11 @@ public class DartsOverviewController {
 				int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
 
 				if (selectedIndex != -1) {
-
+					
 					JatekVezerlo.getInstance().addDobasJatekoshoz(mainApp.getPersonData().get(selectedIndex),
 							new Dobas(point, marker));
-					personTable.getSelectionModel().select(JatekVezerlo.getInstance().getKovetkezoJatekos());
+				personTable.getSelectionModel().select(JatekVezerlo.getInstance().getKovetkezoJatekos());
+					
 				}
 
 			}

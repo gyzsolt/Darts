@@ -9,7 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import view.MainApp;
-/**A játék vezérlésére szolgáló osztály {@code UI}-nek szükséges adatok ellátására is szolgál. 
+
+/**
+ * A játék vezérlésére szolgáló osztály {@code UI}-nek szükséges adatok
+ * ellátására is szolgál.
  * 
  * @author Gyulai Zsolt
  *
@@ -29,7 +32,7 @@ public class JatekVezerlo {
 	 * Az aktuális játéktípusa.
 	 */
 	private String jatekTipus;
-	
+
 	/**
 	 * A játék pontozásához szükséges érték.
 	 */
@@ -50,7 +53,6 @@ public class JatekVezerlo {
 	 */
 	private int dobas = 0;
 
-	
 	/**
 	 * A jaték módokat tartalmazó lista.
 	 */
@@ -60,6 +62,27 @@ public class JatekVezerlo {
 	 * A {@code MainApp} való hivatkozás.
 	 */
 	private MainApp mainApp;
+	
+	/**
+	 * Akkor {@code true} ha felvettük a játékosokat és elkezdtük egyébként {@code false}.
+	 */
+	private boolean aktivJatek=false;
+	
+	/**
+	 * Lekérdezi az aktivJatek változó értékét.
+	 * @return aktivJatek értékét adja vissza1
+	 */
+	public boolean isAktivJatek() {
+		return aktivJatek;
+	}
+
+	/**
+	 * Beállítja a paraméterül kapot értéket azaktivJatek-ra.
+	 * @param aktivJatek a kapott paraméter {@code true} vagy {@code false}
+	 */
+	public void setAktivJatek(boolean aktivJatek) {
+		this.aktivJatek = aktivJatek;
+	}
 
 	/**
 	 * Ajátékvezérlő konstruktora.
@@ -70,12 +93,13 @@ public class JatekVezerlo {
 
 	/**
 	 * A mentéshez és betöltéshez szükséges elérésiútvonal készítése.
+	 * 
 	 * @return path visszatér az elérési úttal
 	 */
-	public String createPath() {
+	private String createPath() {
 		String path = "";
 
-		path = System.getProperty("user.name") + System.getProperty("file.separator") + ".darts"
+		path = System.getProperty("user.home") + System.getProperty("file.separator") + ".darts"
 				+ System.getProperty("file.separator");
 
 		return path;
@@ -85,23 +109,31 @@ public class JatekVezerlo {
 	 * Betölt egy játékállapotot a vezérlőbe.
 	 */
 	public void load() {
-		String path =createPath() + "darts.xml";
+		vegeVan();
+		String path = createPath() + "darts.xml";
 		File file = new File(path);
-		if (file.exists()) {
-			
-			
-			//jatekosok.stream().map(p -> p.getPontjai()).forEach(System.out::println);
-			
-			SaveLoad loadAllapot = new SaveLoad(path);
-			JatekAllapot jatekAllapot = loadAllapot.load();
-			setJatekosok(jatekAllapot.getJatekosok());
-			setJatekTipus(jatekAllapot.getJatekTipus());
-			setJatekPont(jatekAllapot.getJatekPont());
-			setDobas(jatekAllapot.getDobas());
-			mainApp.UdpdatePerson(jatekosok);
-			// mainApp.showDartsOverview();
+		
+		 if (file.exists()) {
+		 
+		SaveLoad loadAllapot = new SaveLoad(path);
+		JatekAllapot jatekAllapot = loadAllapot.load();		
+		setJatekosok(jatekAllapot.getJatekosok());	
+		setJatekTipus(jatekAllapot.getJatekTipus());
+		setJatekPont(jatekAllapot.getJatekPont());
+		setKovetkezoJatekos(jatekAllapot.getKovetkezoJatekos());
+		setDobas(jatekAllapot.getDobas());
+		
+		if(mainApp !=null){
+		mainApp.UdpdatePerson(jatekosok);
+		mainApp.ActivateGame();
 		}
+		 }
 	}
+
+	public List<Jatekos> getJatekosok() {
+		return jatekosok;
+	}
+
 	/**
 	 * Kimenti az aktuális játékállapotot.
 	 */
@@ -109,9 +141,9 @@ public class JatekVezerlo {
 
 		String path = createPath();
 		File file = new File(path);
-		if (!file.exists()){
-			file.mkdirs();
-		}
+
+		if (!file.exists()){ file.mkdirs(); }
+	
 		SaveLoad saveAllapot = new SaveLoad(path+"darts.xml");
 		JatekAllapot jatekAllapot = new JatekAllapot();
 
@@ -124,9 +156,12 @@ public class JatekVezerlo {
 		saveAllapot.save(jatekAllapot);
 
 	}
+
 	/**
 	 * Beállítja az aktuális dobást.
-	 * @param dobas au aktuális dobás száma
+	 * 
+	 * @param dobas
+	 *            au aktuális dobás száma
 	 */
 	public void setDobas(int dobas) {
 		this.dobas = dobas;
@@ -134,6 +169,7 @@ public class JatekVezerlo {
 
 	/**
 	 * A játék eredményéhez szolgáló érték lekérdezése.
+	 * 
 	 * @return visszatért pontszám
 	 */
 	public int getJatekPont() {
@@ -142,7 +178,9 @@ public class JatekVezerlo {
 
 	/**
 	 * A játék eredményéhez szolgáló érték beállítása.
-	 * @param jatekPont a beállítani kívánt érték
+	 * 
+	 * @param jatekPont
+	 *            a beállítani kívánt érték
 	 */
 	public void setJatekPont(int jatekPont) {
 		this.jatekPont = jatekPont;
@@ -150,7 +188,9 @@ public class JatekVezerlo {
 
 	/**
 	 * Beállít egy {@link MainApp}való hivatkozást.
-	 * @param mainApp a MainApp referenciája
+	 * 
+	 * @param mainApp
+	 *            a MainApp referenciája
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
@@ -165,32 +205,37 @@ public class JatekVezerlo {
 
 	/**
 	 * Osztály példányának a lekérése.
+	 * 
 	 * @return az osztály példánya
 	 */
 	public static JatekVezerlo getInstance() {
-		if (instance == null){
+		if (instance == null) {
 			instance = new JatekVezerlo();
-			logger.info("JatekVezerlo példánya létrejött");
+			logger.info("New Jatekvezerlo");
 		}
 		return instance;
 	}
 
 	/**
-	 * Játékos hozzáadása a listához , és a játékosok továbbítása a grafikus felülethez. 
-	 * @param jatekos az új játékos
+	 * Játékos hozzáadása a listához , és a játékosok továbbítása a grafikus
+	 * felülethez.
+	 * 
+	 * @param jatekos
+	 *            az új játékos
 	 */
 	public void addJatekos(Jatekos jatekos) {
 		jatekosok.add(jatekos);
-		logger.info("Új játékossalbővültünk.");
+		logger.info(jatekos.getNeve() + " added to players.");
 		mainApp.UdpdatePerson(jatekosok);
 
 	}
 
 	/**
 	 * Aktuális dobás lekérdezése.
+	 * 
 	 * @return dobas az aktuális dobás
 	 */
-	private int getDobas() {
+	public int getDobas() {
 		return dobas;
 	}
 
@@ -204,6 +249,7 @@ public class JatekVezerlo {
 
 	/**
 	 * Megvizsgálja ,hogy a névnek szolgló érték nem e üres.
+	 * 
 	 * @param nev a vizsgálandó név
 	 * @return a vizsgálat eredménye
 	 */
@@ -212,8 +258,10 @@ public class JatekVezerlo {
 	}
 
 	/**
-	 * Dobási javaslat lekérdezése a játékmód és az aktuális játékos függvényében.
-	 * @param jatekmod a játékmód
+	 * Dobási javaslat lekérdezése a játékmód és az aktuális játékos
+	 * függvényében.
+	 * 
+	 * @param jatekmod  a játékmód
 	 * @param jatekos a javaslatra szorulójátékos
 	 * @return tanacs az adott tanács
 	 */
@@ -221,7 +269,9 @@ public class JatekVezerlo {
 		String tanacs = "";
 		if (jatekmod.substring(1, 3).equals("01")) {
 			normalDarts nd = new normalDarts();
-			tanacs = nd.addSuggestion(3 - getDobas(), (getJatekPont() - jatekos.getPontjai()));
+			if (3 - getDobas() > 0 && getJatekPont() - jatekos.getPontjai() > 0) {
+				tanacs = nd.addSuggestion(3 - getDobas(), (getJatekPont() - jatekos.getPontjai()));
+			}
 		}
 
 		return tanacs;
@@ -235,16 +285,22 @@ public class JatekVezerlo {
 		jatekosok.clear();
 		resetDobas();
 		setJatekPont(0);
-		setJatekTipus("");
+		setJatekTipus("301");
 		setKovetkezoJatekos(0);
+		if(mainApp != null){
 		mainApp.UdpdatePerson(jatekosok);
 		mainApp.showDartsOverview();
-
+		}
 	}
+
 	/**
-	 * Vizsgálja hogy az adott játékmódnak megfelelően nem dobott e túl sokat vagy nem e győzött. 
-	 * @param jatekos aktuális játékos
-	 * @param dobas	a játékos dobása
+	 * Vizsgálja hogy az adott játékmódnak megfelelően nem dobott e túl sokat
+	 * vagy nem e győzött.
+	 * 
+	 * @param jatekos
+	 *            aktuális játékos
+	 * @param dobas
+	 *            a játékos dobása
 	 */
 	public void jatekIranyito(Jatekos jatekos, Dobas dobas) {
 		normalDarts nDarts = new normalDarts();
@@ -253,45 +309,51 @@ public class JatekVezerlo {
 		boolean isWinner = false;
 		tooMuhc = nDarts.tooMuch(getJatekPont(), jatekos.getPontjai());
 		isWinner = nDarts.isWinner(getJatekPont(), jatekos.getPontjai(), dobas);
-		if (tooMuhc){
+		if (tooMuhc) {
 			nDarts.removeThrows(jatekos, getDobas());
-			logger.warn("A dobás értéke túl sok.");
+			kiaKovetkezo(tooMuhc, isWinner);
+			logger.warn(jatekos.getNeve() + " Too much!");
 		}
 		if (!tooMuhc && !isWinner) {
-			mainApp.UpdateSuggesion();
 			kiaKovetkezo(tooMuhc, isWinner);
+			mainApp.UpdateSuggesion();
+
 		}
 		if (!isWinner)
 			mainApp.UdpdatePerson(jatekosok);
 		if (isWinner) {
 			mainApp.showEndDialog(jatekos);
 
-			// vegeVan();
-		}
+			}
 	}
 
 	/**
-	 * Új  dobás felvétel egy játékos dobásainak listájához.
-	 * @param jatekos az adott játékos
-	 * @param dobas az adott játékos dobása
+	 * Új dobás felvétel egy játékos dobásainak listájához.
+	 * 
+	 * @param jatekos
+	 *            az adott játékos
+	 * @param dobas
+	 *            az adott játékos dobása
 	 */
 	public void addDobasJatekoshoz(Jatekos jatekos, Dobas dobas) {
 		jatekos.addDobasok(dobas);
-		logger.trace("Játékos úra dobott.");
+		logger.trace(jatekos.getNeve() + " point.");
 		jatekIranyito(jatekos, dobas);
 
 	}
 
 	/**
 	 * Játékosok listájának beállítása egy adott lista alapján.
+	 * 
 	 * @param jatekosok játékosokat tartalmazó lisa.
 	 */
-	public static void setJatekosok(List<Jatekos> jatekosok) {
-		jatekosok.addAll(jatekosok);
+	public  void setJatekosok(List<Jatekos> jatekosok) {
+		this.jatekosok.addAll(jatekosok);
 	}
 
-	
-	/**Eldönti ki a következő játékos az alapján ,hogy az aktuális játékos ,hogyan teljesített és hanyadik dobása volt.
+	/**
+	 * Eldönti ki a következő játékos az alapján ,hogy az aktuális játékos
+	 * ,hogyan teljesített és hanyadik dobása volt.
 	 * 
 	 * @param tM az aktuális játékos túl sokat dobott e
 	 * @param iW az aktuális játékos nem győzott e
@@ -310,7 +372,8 @@ public class JatekVezerlo {
 
 	}
 
-	/**A játékmódok listájának lekérdezésére.
+	/**
+	 * A játékmódok listájának lekérdezésére.
 	 * 
 	 * @return Jatekmodok a játékmódok listája
 	 */
@@ -320,6 +383,7 @@ public class JatekVezerlo {
 
 	/**
 	 * A játék típusának lekérdezése.
+	 * 
 	 * @return jetekTipus a vissza adott játék ítőus
 	 */
 	public String getJatekTipus() {
@@ -327,7 +391,9 @@ public class JatekVezerlo {
 	}
 
 	/**
-	 * A játék módjának a beállítása és ez alapján a számoláshoz szükséges pontszám beállítása.
+	 * A játék módjának a beállítása és ez alapján a számoláshoz szükséges
+	 * pontszám beállítása.
+	 * 
 	 * @param jatekTipus a játékmód típusa
 	 */
 	public void setJatekTipus(String jatekTipus) {
@@ -339,6 +405,7 @@ public class JatekVezerlo {
 
 	/**
 	 * A következő játékos lekérdezése.
+	 * 
 	 * @return visszatér az adott játékos sorszámával.
 	 */
 	public int getKovetkezoJatekos() {
@@ -347,9 +414,10 @@ public class JatekVezerlo {
 
 	/**
 	 * A következő játékos beállítása.
+	 * 
 	 * @param kovetkezoJatekos sorszámának beállítása.
 	 */
-	private void setKovetkezoJatekos(int kovetkezoJatekos) {
+	public void setKovetkezoJatekos(int kovetkezoJatekos) {
 		this.kovetkezoJatekos = kovetkezoJatekos;
 	}
 

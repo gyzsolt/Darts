@@ -11,66 +11,82 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-/**A játékállapot kimentséhez és betöltéséhez szolgáló osztály.
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A játékállapot kimentséhez és betöltéséhez szolgáló osztály.
  * 
  * @author Gyulai Zsolt
  *
  */
 public class SaveLoad {
-	
-private File file;
-	
-	/**Egy {@code String}el megadott fájl elérést alakít át fájl elérési útvonallá.
-	 * 
-	 * @param fileName a megadott elérési út
+	/**
+	 * A naplózáshoz szükséges logger.
 	 */
-	public SaveLoad(String fileName){
-		file=new File(fileName) ;
-		
+	static private Logger logger = LoggerFactory.getLogger(SaveLoad.class);
+
+	private File file;
+
+	/**
+	 * Egy {@code String}el megadott fájl elérést alakít át fájl elérési
+	 * útvonallá.
+	 * 
+	 * @param fileName
+	 *            a megadott elérési út
+	 */
+	public SaveLoad(String fileName) {
+		file = new File(fileName);
+
 	}
-	/**Egy játékállapot {@code XML} állományból való betöltésére szolgál.
+
+	/**
+	 * Egy játékállapot {@code XML} állományból való betöltésére szolgál.
 	 * 
 	 * @return sikeres betöltés esetén visszatér egy {@link JatekAllapot}-val.
 	 */
-	public JatekAllapot load(){
+	public JatekAllapot load() {
 		try {
 			InputStream istream = new FileInputStream(file);
-			JAXBContext context = JAXBContext
-					.newInstance(JatekAllapot.class);
+			JAXBContext context = JAXBContext.newInstance(JatekAllapot.class);
 			Unmarshaller umarsh = context.createUnmarshaller();
 			JatekAllapot ret = (JatekAllapot) umarsh.unmarshal(istream);
+			logger.info("Loaded the new JatekAllapot.");
 			return ret;
 		} catch (JAXBException e) {
+			logger.error("Coudnot load" + file);
 			return null;
 		} catch (FileNotFoundException e) {
+			logger.error("Not found" + file);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Egy megkapott játékállapotot ment ki {@code XML} állományba.
 	 * 
-	 * @param jatekAllapot a menteni kíván játékállapot.
+	 * @param jatekAllapot
+	 *            a menteni kíván játékállapot.
 	 */
-	public void save(JatekAllapot jatekAllapot){
+	public void save(JatekAllapot jatekAllapot) {
 		try {
-			
-				OutputStream ostream = new FileOutputStream(file);
 
+			OutputStream ostream = new FileOutputStream(file);
 
-			JAXBContext context = JAXBContext
-					.newInstance(JatekAllapot.class);
+			JAXBContext context = JAXBContext.newInstance(JatekAllapot.class);
 			Marshaller marsh = context.createMarshaller();
 			marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marsh.marshal(jatekAllapot, ostream);
 		} catch (JAXBException e) {
-			//logger.error("Could not save world descriptor to " + f);
-			System.out.println("Could not save world descriptor to " + file);
-			System.out.println("Error message is: " + e.getMessage());
-			//logger.error("Error message is: " + e.getMessage());
+			logger.error("Coudnot save " + file);
+			// System.out.println("Nem tudta kimenteni ajátékállapotot. " +
+			// file);
+			// System.out.println("Error message is: " + e.getMessage());
+			logger.error("Error message is: " + e.getMessage());
 		} catch (FileNotFoundException e) {
-			//logger.error("Could create world descriptor file " + f);
-		} 
+			logger.error("Not found state" + file);
+		}
 	}
 
 }

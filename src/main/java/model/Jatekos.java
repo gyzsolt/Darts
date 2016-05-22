@@ -91,4 +91,35 @@ public class Jatekos {
 		return osszeg;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dobasok == null) ? 0 : dobasok.hashCode());
+		result = prime * result + ((neve == null) ? 0 : neve.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Jatekos other = (Jatekos) obj;
+		if (dobasok == null) {
+			if (other.dobasok != null)
+				return false;
+		} else if (!dobasok.equals(other.dobasok))
+			return false;
+		if (neve == null) {
+			if (other.neve != null)
+				return false;
+		} else if (!neve.equals(other.neve))
+			return false;
+		return true;
+	}
+
 }

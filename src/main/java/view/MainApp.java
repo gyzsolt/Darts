@@ -1,7 +1,6 @@
 package view;
 
 import java.io.IOException;
-import java.lang.annotation.Inherited;
 import java.util.List;
 
 import javafx.application.Application;
@@ -37,7 +36,12 @@ public class MainApp extends Application {
 	public MainApp() {
 
 	}
-
+	/**
+	 * Meghívja a kontroller start függvényét.
+	 */
+	public void ActivateGame(){
+		controller.start();
+	}
 	/**
 	 * Frissíti a játékosok listáját és azt át adja a {@code DartsOverviewController}.
 	 * @param Persons játékosokat tartalmazó lista
@@ -78,12 +82,9 @@ public class MainApp extends Application {
 	 */
 	public void initRootLayout() {
 		try {
-			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("/fxml/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-
-			// Show the scene containing the root layout.
 
 			Scene scene = new Scene(rootLayout);
 
@@ -99,15 +100,12 @@ public class MainApp extends Application {
 	 */
 	public void showDartsOverview() {
 		try {
-			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("DartsOverview.fxml"));
+			loader.setLocation(MainApp.class.getResource("/fxml/DartsOverview.fxml"));
 			AnchorPane personOverview = (AnchorPane) loader.load();
 
-			// Set person overview into the center of root layout.
 			rootLayout.setCenter(personOverview);
 
-			// Give the controller access to the main app.
 			controller = loader.getController();
 			controller.setMainApp(this);
 			JatekVezerlo.getInstance().setMainApp(this);
@@ -123,30 +121,26 @@ public class MainApp extends Application {
 	 */
 	public void showEndDialog(Jatekos jatekos) {
 		try {
-			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			System.out.println("sad");
-			loader.setLocation(MainApp.class.getResource("EndOverview.fxml"));
+			loader.setLocation(MainApp.class.getResource("/fxml/EndOverview.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
-			System.out.println("sqw");
-			// Create the dialog Stage.
+	
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Winner Player");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
-
+			
 			EndOverviewController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setWinner(jatekos);
+			
 
 			dialogStage.showAndWait();
 
-			// return controller.isOkClicked();
 		} catch (IOException e) {
 			e.printStackTrace();
-			// return false;
 		}
 	}
 

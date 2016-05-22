@@ -9,7 +9,7 @@ import model.Dobas;
 import model.Jatekos;
 import model.normalDarts;
 
-public class TesztNormalDarts {
+public class TestNormalDarts {
 
 	private static normalDarts nD;
 	

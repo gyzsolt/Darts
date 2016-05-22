@@ -136,6 +136,48 @@ public class JatekAllapot {
 		this.dobas = dobas;
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + dobas;
+		result = prime * result + jatekPont;
+		result = prime * result + ((jatekTipus == null) ? 0 : jatekTipus.hashCode());
+		result = prime * result + ((jatekosok == null) ? 0 : jatekosok.hashCode());
+		result = prime * result + kovetkezoJatekos;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		JatekAllapot other = (JatekAllapot) obj;
+		if (dobas != other.dobas)
+			return false;
+		if (jatekPont != other.jatekPont)
+			return false;
+		if (jatekTipus == null) {
+			if (other.jatekTipus != null)
+				return false;
+		} else if (!jatekTipus.equals(other.jatekTipus))
+			return false;
+		if (jatekosok == null) {
+			if (other.jatekosok != null)
+				return false;
+		} else if (!jatekosok.equals(other.jatekosok))
+			return false;
+		if (kovetkezoJatekos != other.kovetkezoJatekos)
+			return false;
+		return true;
+	}
+
 	
 	
 }

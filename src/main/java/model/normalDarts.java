@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * A darts játék hagyományos dupla kiszálós játékmódjának megvalósítására szolgáló osztály.
  * 
@@ -13,10 +11,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class normalDarts {
-	/**
-	 * A naplózáshoz szükséges logger.
-	 */
-	static private Logger logger = LoggerFactory.getLogger(Main.class);
 	
 	/**
 	 * A játék tanácsadáshoz felhasználandó {@code HashMap}. 
@@ -28,7 +22,6 @@ public class normalDarts {
 	 */
 	public normalDarts() {
 		loadScoreBoard();
-		logger.info("ScoreBoard fel lett töltve.");
 	}
 	/**
 	 * Eldönti ,hogy a játékos álltal végzett dobásokkal nem lépte-e át a játékszabályban megengedettet.
@@ -119,18 +112,6 @@ public class normalDarts {
 				break;
 			}
 		}
-		/*
-		 * switch (dobasok) { case 1: javaslat = seged(pont); break; case 2: if
-		 * (pont <= 40) { javaslat = seged(pont); } else { javaslat = seged(pont
-		 * - 40) + " " + seged(pont); }
-		 * 
-		 * break; case 3: if (pont > 181) { javaslat = "T20 T20 T20"; break; }
-		 * if (pont <= 40) { javaslat = seged(pont); } if(pont<=121){ javaslat =
-		 * seged(pont - 40) + " " + seged(pont); } if(pont>121) javaslat=
-		 * "T20 T20"+seged(pont-120); break;
-		 * 
-		 * default: break; }
-		 */
 		return javaslat;
 	}
 /**
